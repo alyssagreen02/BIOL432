@@ -8,7 +8,7 @@ Limb_width=rpois(100,5)
 Limb_length=rpois(100,5)
 
 # 4. A vector of 100 values for Observer, randomly selected from a vector of 3 names (you can use any names you like).
-Observer=sample(c("Alyssa G", "Josh G", "Sam P", "Lindsey M"), 100, replace = T)
+Observer=sample(c("Alyssa G", "Josh G", "Sam P"), 100, replace = T)
 
 # 5. Combine all of the vectors into a data.frame.
 measurements=data.frame(Organisim, Limb_width, Limb_length, Observer)
