@@ -76,9 +76,6 @@ OSP=ggplot(aes(Volume), data=OS)+geom_bar()+theme_pub()+ggtitle("Orng samples")
 
 ##### Combine histograms into multi-panel plot
 ```{r}
-grid.arrange(SPP, GBP, PEP, PGP, OSP ,ncol=2, bottom = textGrob("Figure 2: Frequency histograms for each species",
-                           x = 0,
-                           y = 0.5,
-                           just = "left"))
+grid.arrange(SPP, GBP, PEP, PGP, OSP ,ncol=2, bottom = textGrob("Figure 2: Frequency histograms for each species' limb volumes", x = 0, y = 0.5, just = "left"))
 ```
 
