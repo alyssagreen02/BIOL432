@@ -12,6 +12,7 @@ library(dplyr)
 library(ggplot2)
 library(gridExtra)
 library(tidyr)
+library(grid)
 source("http://bit.ly/theme_pub")
 ```
 
@@ -51,24 +52,33 @@ Num_Obs
 
 ### Create boxplot to compare key features of the distributions of volumes for each species
 ```{r}
-ggplot(data = measurements, aes(x=Organism, y=Volume))+geom_boxplot()+theme_pub()
+ggplot(data = measurements, aes(x=Organism, y=Volume))+geom_boxplot()+theme_pub()+ labs(caption = "Figure 1: Box plot of volume distributions for species")+theme(plot.caption = element_text(hjust=0))
 ```
 
 ### Generate multi-panel plot showing frequency histograms for each species
+##### Create seperate data sets for each species
 ```{r}
 SP=measurements%>%filter(Organism=="Specious peoples")
 GB=measurements%>%filter(Organism=="Grenous benous")
 PE=measurements%>%filter(Organism=="Purlous elefanous")
 PG=measurements%>%filter(Organism=="Pinkus grafiarous")
 OS=measurements%>%filter(Organism=="Orng samples")
+```
 
-
+##### Create histograms for each species
+```{r}
 SPP=ggplot(aes(Volume), data=SP)+geom_bar()+theme_pub()+ggtitle("Specious peoples")
 GBP=ggplot(aes(Volume), data=GB)+geom_bar()+theme_pub()+ggtitle("Grenous benous")
 PEP=ggplot(aes(Volume), data=PE)+geom_bar()+theme_pub()+ggtitle("Purlous elefanous")
 PGP=ggplot(aes(Volume), data=PG)+geom_bar()+theme_pub()+ggtitle("Pinkus grafiarous")
 OSP=ggplot(aes(Volume), data=OS)+geom_bar()+theme_pub()+ggtitle("Orng samples")
+```
 
-grid.arrange(SPP, GBP, PEP, PGP, OSP ,ncol=2)
+##### Combine histograms into multi-panel plot
+```{r}
+grid.arrange(SPP, GBP, PEP, PGP, OSP ,ncol=2, bottom = textGrob("Figure 2: Frequency histograms for each species",
+                           x = 0,
+                           y = 0.5,
+                           just = "left"))
 ```
 
