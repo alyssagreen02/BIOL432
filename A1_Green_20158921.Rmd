@@ -56,7 +56,6 @@ ggplot(data = measurements, aes(x=Organism, y=Volume))+geom_boxplot()+theme_pub(
 
 ### Generate multi-panel plot showing frequency histograms for each species
 ```{r}
-  
 SP=measurements%>%filter(Organism=="Specious peoples")
 GB=measurements%>%filter(Organism=="Grenous benous")
 PE=measurements%>%filter(Organism=="Purlous elefanous")
