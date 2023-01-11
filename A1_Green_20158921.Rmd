@@ -1,0 +1,75 @@
+---
+title: "A1_Green_20158921"
+author: "Alyssa Green"
+date: "2023-01-11"
+output: html_document
+---
+[Link to GitHub Repository](https://github.com/alyssagreen02/BIOL432_Assignment1)
+
+### Load libraries
+```{r}
+library(dplyr)
+library(ggplot2)
+library(gridExtra)
+library(tidyr)
+source("http://bit.ly/theme_pub")
+```
+
+### Load previous R scripts
+##### Load script that generates limb measurement data
+```{r}
+source("dataGenerato.R")
+```
+
+##### Load script that calculates limb volume data
+```{r}
+source("volumeEstimato.R")
+```
+
+### Load measurements.csv
+```{r}
+measurements=read.csv("measurements.csv")
+```
+
+### Sort data by species, then by observer, then by limb volume
+```{r}
+measurements=measurements%>%arrange(Organism, Observer, Volume)
+measurements
+```
+
+### Generate table showing average volume for each species
+```{r}
+AvgVol=measurements%>%group_by(Organism)%>%summarise(Average_Volume=mean(Volume))
+AvgVol
+```
+
+### Generate table showing number of observations for each combination of species and observer
+```{r}
+Num_Obs=measurements%>%count(Organism, Observer)
+Num_Obs
+```
+
+### Create boxplot to compare key features of the distributions of volumes for each species
+```{r}
+ggplot(data = measurements, aes(x=Organism, y=Volume))+geom_boxplot()+theme_pub()
+```
+
+### Generate multi-panel plot showing frequency histograms for each species
+```{r}
+  
+SP=measurements%>%filter(Organism=="Specious peoples")
+GB=measurements%>%filter(Organism=="Grenous benous")
+PE=measurements%>%filter(Organism=="Purlous elefanous")
+PG=measurements%>%filter(Organism=="Pinkus grafiarous")
+OS=measurements%>%filter(Organism=="Orng samples")
+
+
+SPP=ggplot(aes(Volume), data=SP)+geom_bar()+theme_pub()+ggtitle("Specious peoples")
+GBP=ggplot(aes(Volume), data=GB)+geom_bar()+theme_pub()+ggtitle("Grenous benous")
+PEP=ggplot(aes(Volume), data=PE)+geom_bar()+theme_pub()+ggtitle("Purlous elefanous")
+PGP=ggplot(aes(Volume), data=PG)+geom_bar()+theme_pub()+ggtitle("Pinkus grafiarous")
+OSP=ggplot(aes(Volume), data=OS)+geom_bar()+theme_pub()+ggtitle("Orng samples")
+
+grid.arrange(SPP, GBP, PEP, PGP, OSP ,ncol=2)
+```
+
