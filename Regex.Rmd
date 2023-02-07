@@ -7,7 +7,7 @@ output: html_document
 
 # [GitHub Repository](https://github.com/alyssagreen02/BIOL432)
 
-# Load Libraries
+# Load Library
 ```{r}
 library(dplyr)
 ```
