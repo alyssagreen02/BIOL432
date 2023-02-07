@@ -1,0 +1,37 @@
+---
+title: "Regex"
+author: "Alyssa Green"
+date: "2023-02-08"
+output: html_document
+---
+
+# [GitHub Repository](https://github.com/alyssagreen02/BIOL432)
+
+# Load Libraries
+```{r}
+library(dplyr)
+```
+
+# 1. Import Data
+```{r}
+MData=read.csv("measurements.csv")
+```
+
+# 2. Add new column
+```{r}
+MData=MData%>%mutate(Sp=gsub("^(.).*\\s(\\w+)","\\1\\. \\2",Organism))
+
+head(MData)
+```
+
+# New Data Frame
+```{r}
+MeasShort=MData%>%select(Sp, Limb_width, Limb_length, Observer, Volume)
+head(MeasShort)
+```
+
+# Save Data Set
+```{r}
+write.csv(MeasShort, file = "MeasShort.csv", row.names = F)
+```
+
